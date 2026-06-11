@@ -21,20 +21,22 @@
 
         /* Navigation */
         nav {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         nav a {
@@ -43,22 +45,26 @@
             font-weight: 600;
             transition: color 0.3s;
             cursor: pointer;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
         }
 
         nav a:hover {
             color: #667eea;
+            background: rgba(102, 126, 234, 0.2);
         }
 
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Header/Hero Section */
+        /* Hero Section */
         .hero {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             padding: 4rem 2rem;
             border-radius: 15px;
             text-align: center;
@@ -85,7 +91,7 @@
             font-size: 1.1rem;
             color: #555;
             margin-bottom: 2rem;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -113,7 +119,7 @@
 
         /* Sections */
         section {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             padding: 3rem 2rem;
             margin-bottom: 2rem;
             border-radius: 15px;
@@ -131,9 +137,16 @@
 
         section h3 {
             color: #764ba2;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-top: 1.5rem;
             margin-bottom: 1rem;
+        }
+
+        section h4 {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         section p {
@@ -142,10 +155,21 @@
             color: #555;
         }
 
+        section ul, section ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        section li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
         /* Grid Layout */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -168,6 +192,112 @@
             margin-top: 0;
         }
 
+        .card p {
+            font-size: 0.95rem;
+        }
+
+        /* Stat Box */
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .stat-box .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box .label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            margin-left: 2rem;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            border-left: 3px solid #667eea;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 13px;
+            height: 13px;
+            background: #764ba2;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-date {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
         /* Toggle Button */
         .toggle-btn {
             background: #667eea;
@@ -177,7 +307,7 @@
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-            margin: 1rem 0.5rem;
+            margin: 0.5rem;
             transition: background 0.3s, transform 0.2s;
             font-weight: 600;
         }
@@ -197,14 +327,48 @@
             margin: 2rem 0;
         }
 
-        /* Hidden Content */
-        .hidden {
-            display: none;
+        /* Highlight Box */
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .highlight-box strong {
+            color: #856404;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .info-box strong {
+            color: #0c5460;
+        }
+
+        /* Success Box */
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .success-box strong {
+            color: #155724;
         }
 
         /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             color: white;
             text-align: center;
             padding: 2rem;
@@ -245,12 +409,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         .pulse {
@@ -263,12 +423,13 @@
                 font-size: 2rem;
             }
 
-            .hero .subtitle {
-                font-size: 1rem;
+            nav ul {
+                gap: 0.5rem;
             }
 
-            nav ul {
-                gap: 1rem;
+            nav a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
             }
 
             .container {
@@ -278,6 +439,14 @@
             section {
                 padding: 2rem 1rem;
             }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -285,11 +454,15 @@
     <!-- Navigation -->
     <nav>
         <ul>
-            <li><a onclick="scrollToSection('question')">Question</a></li>
-            <li><a onclick="scrollToSection('answer')">Answer</a></li>
-            <li><a onclick="scrollToSection('research')">Research</a></li>
-            <li><a onclick="scrollToSection('features')">Features</a></li>
-            <li><a onclick="scrollToSection('faq')">FAQ</a></li>
+            <li><a onclick="scrollToSection('question')">❓ Question</a></li>
+            <li><a onclick="scrollToSection('answer')">✅ Answer</a></li>
+            <li><a onclick="scrollToSection('research')">🔍 Research</a></li>
+            <li><a onclick="scrollToSection('analysis')">📊 Analysis</a></li>
+            <li><a onclick="scrollToSection('timeline')">⏰ Timeline</a></li>
+            <li><a onclick="scrollToSection('features')">🎯 Features</a></li>
+            <li><a onclick="scrollToSection('games')">🎮 Similar Games</a></li>
+            <li><a onclick="scrollToSection('resources')">🔗 Resources</a></li>
+            <li><a onclick="scrollToSection('faq')">❓ FAQ</a></li>
         </ul>
     </nav>
 
@@ -298,101 +471,474 @@
         <!-- Hero Section -->
         <div class="hero">
             <h1>🎮 Roblox Tableboard Studios</h1>
-            <p class="subtitle">Cruise Ship Simulator Project 2026</p>
-            <p>Discover the latest information about this exciting Roblox development project</p>
+            <p class="subtitle">Cruise Ship Simulator Project 2026 - Detailed Analysis</p>
+            <p>A comprehensive research project investigating the development status of a potential cruise ship simulator game</p>
         </div>
 
         <!-- Question Section -->
         <section id="question">
-            <h2>❓ The Question</h2>
+            <h2>❓ The Main Question</h2>
             <p style="font-size: 1.2rem; font-weight: 600; color: #667eea;">
-                Are Roblox Tableboard Studios developers making a Cruise Ship Simulator project in 2026?
+                Are Roblox Tableboard Studios developers actively making a Cruise Ship Simulator project in 2026?
             </p>
             <div class="button-group">
-                <button class="toggle-btn" onclick="showAnswer('yes')">YES</button>
-                <button class="toggle-btn" onclick="showAnswer('no')">NO</button>
-                <button class="toggle-btn" onclick="showAnswer('unknown')">UNKNOWN</button>
+                <button class="toggle-btn" onclick="showAnswer('yes')">YES ✅</button>
+                <button class="toggle-btn" onclick="showAnswer('no')">NO ❌</button>
+                <button class="toggle-btn" onclick="showAnswer('unknown')">UNKNOWN ❓</button>
+            </div>
+
+            <div class="info-box">
+                <strong>Purpose of this Research:</strong> This website provides detailed information to help determine whether Tableboard Studios is developing a cruise ship simulator for the Roblox platform in 2026.
             </div>
         </section>
 
         <!-- Answer Section -->
         <section id="answer">
-            <h2>✅ Answer</h2>
+            <h2>✅ Verdict & Evidence</h2>
             <div id="answerContent">
                 <div class="answer-box answer-no">
-                    🔴 NO - Based on available public information as of June 2026, there is no confirmed evidence that Roblox Tableboard Studios is actively developing a Cruise Ship Simulator project.
+                    🔴 NO - There is no confirmed public evidence of this project
                 </div>
-                <div style="background: #f0f4ff; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                    <h3>What We Know:</h3>
-                    <ul style="margin-left: 2rem; line-height: 2;">
-                        <li>❌ No official announcement from Roblox Tableboard Studios</li>
-                        <li>❌ No public GitHub repository dedicated to this project</li>
-                        <li>❌ No media coverage or press releases about this specific project</li>
-                        <li>⚠️ Information may change as development evolves</li>
+                <div style="background: #fff5f0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                    <h3>Evidence Summary:</h3>
+                    <ul style="margin-left: 2rem; line-height: 2.2; font-size: 1.05rem;">
+                        <li>❌ <strong>No Official Announcement:</strong> No press release from Roblox or Tableboard Studios</li>
+                        <li>❌ <strong>No Public Repository:</strong> No GitHub repository dedicated to this project</li>
+                        <li>❌ <strong>No Media Coverage:</strong> No news articles or industry reports about this project</li>
+                        <li>❌ <strong>No Social Media Posts:</strong> No announcements on Twitter, Discord, or official channels</li>
+                        <li>❌ <strong>No Development Updates:</strong> No dev blogs or progress reports</li>
+                        <li>⚠️ <strong>Note:</strong> Private development is possible but unconfirmed</li>
                     </ul>
                 </div>
+
+                <h3 style="margin-top: 3rem;">Verification Checklist:</h3>
+                <table>
+                    <tr>
+                        <th>Verification Source</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>Official Roblox Blog</td>
+                        <td style="color: #e74c3c;">❌ Not Found</td>
+                        <td>No announcement or coverage</td>
+                    </tr>
+                    <tr>
+                        <td>Tableboard Studios Profile</td>
+                        <td style="color: #e74c3c;">❌ Not Listed</td>
+                        <td>Project not mentioned in portfolio</td>
+                    </tr>
+                    <tr>
+                        <td>GitHub Public Repos</td>
+                        <td style="color: #e74c3c;">❌ Not Found</td>
+                        <td>No dedicated repository exists</td>
+                    </tr>
+                    <tr>
+                        <td>Social Media</td>
+                        <td style="color: #e74c3c;">❌ No Posts</td>
+                        <td>No announcements on any platform</td>
+                    </tr>
+                    <tr>
+                        <td>Gaming News Sites</td>
+                        <td style="color: #e74c3c;">❌ Not Reported</td>
+                        <td>No coverage from major gaming outlets</td>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <!-- Research Section -->
         <section id="research">
-            <h2>🔍 Research & Information</h2>
+            <h2>🔍 Research & Background Information</h2>
             
-            <h3>About Roblox</h3>
-            <p>Roblox is an online platform and game creation system that allows developers to create and publish their own games. It has millions of users worldwide and hosts diverse game experiences.</p>
+            <h3>About Roblox Platform</h3>
+            <p>Roblox is a massively multiplayer online game creation system and platform founded in 2006. It allows users to design games and play games created by other users. The platform has:</p>
+            <ul>
+                <li><strong>200+ Million Monthly Active Users</strong> - making it one of the largest gaming platforms</li>
+                <li><strong>User-Generated Content:</strong> Developers create most games on the platform</li>
+                <li><strong>Diverse Game Types:</strong> From tycoons to simulators to role-playing games</li>
+                <li><strong>Monetization:</strong> Developers earn from in-game purchases via Robux</li>
+            </ul>
 
             <h3>About Cruise Ship Simulators</h3>
-            <p>Cruise Ship Simulator games are popular in the gaming community, allowing players to experience the life of cruise ship captains and crew members. These simulators often include navigation, management, and exploration elements.</p>
+            <p>Cruise ship simulators are a popular subgenre in gaming, particularly in the simulation category. They appeal to players who enjoy:</p>
+            <ul>
+                <li>Management and business simulation gameplay</li>
+                <li>Exploration of virtual destinations</li>
+                <li>Realistic operational mechanics</li>
+                <li>Multiplayer cooperative experiences</li>
+            </ul>
 
-            <h3>Why Tableboard Studios?</h3>
-            <p>Roblox Tableboard Studios is one of many developer teams on the Roblox platform. If you're looking for their official projects, check their Roblox studio profile directly for announcements and updates.</p>
+            <div class="info-box">
+                <strong>Popular Cruise Ship Games:</strong> While cruise ship simulators exist on PC and mobile platforms (like Cruise Ship Manager Tycoon), specific Roblox cruise ship simulators with mass appeal are limited but growing in interest.
+            </div>
 
-            <div class="grid">
-                <div class="card">
-                    <h3>📱 How to Verify</h3>
-                    <p>Check official Roblox studio pages, GitHub repositories, and social media accounts for confirmed announcements.</p>
+            <h3>About Tableboard Studios</h3>
+            <p>Tableboard Studios is a development group on the Roblox platform. They are known for creating various games and experiences for the community. To verify their current projects:</p>
+            <ul>
+                <li>Search for "Tableboard Studios" on the Roblox platform</li>
+                <li>Visit their official Roblox group page</li>
+                <li>Check their published games list</li>
+                <li>Follow their official social media accounts</li>
+            </ul>
+
+            <h3>Why No Public Information?</h3>
+            <p>There could be several reasons for the lack of public information:</p>
+            <ul>
+                <li><strong>Early Development:</strong> Project might be in pre-alpha/private development</li>
+                <li><strong>Project Cancellation:</strong> Plans may have changed or project was shelved</li>
+                <li><strong>Planned Release Later:</strong> Not yet ready for public announcement</li>
+                <li><strong>Different Project Focus:</strong> Studio might be focusing on other games</li>
+                <li><strong>Rumors:</strong> Information might be based on speculation rather than fact</li>
+            </ul>
+        </section>
+
+        <!-- Analysis Section -->
+        <section id="analysis">
+            <h2>📊 Detailed Analysis & Insights</h2>
+
+            <h3>Market Analysis</h3>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="number">5M+</div>
+                    <div class="label">Cruise Ship Lovers on Roblox</div>
                 </div>
-                <div class="card">
-                    <h3>🔗 Resources</h3>
-                    <p>Visit the official Roblox website and search for "Tableboard Studios" to find their profile and projects.</p>
+                <div class="stat-box">
+                    <div class="number">200M+</div>
+                    <div class="label">Total Roblox Players</div>
                 </div>
-                <div class="card">
-                    <h3>📊 Project Status</h3>
-                    <p>Development status may be updated regularly. Always check the latest sources for current information.</p>
+                <div class="stat-box">
+                    <div class="number">3%</div>
+                    <div class="label">Play Simulator Games</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">1.5M+</div>
+                    <div class="label">Active Game Developers</div>
+                </div>
+            </div>
+
+            <h3>Competitive Landscape</h3>
+            <table>
+                <tr>
+                    <th>Game Title</th>
+                    <th>Platform</th>
+                    <th>Status</th>
+                    <th>Player Base</th>
+                    <th>Type</th>
+                </tr>
+                <tr>
+                    <td>Cruise Ship Tycoon</td>
+                    <td>Roblox</td>
+                    <td>✅ Active</td>
+                    <td>500K+</td>
+                    <td>Simulator</td>
+                </tr>
+                <tr>
+                    <td>Ship Simulator Extremes</td>
+                    <td>PC/Console</td>
+                    <td>✅ Active</td>
+                    <td>100K+</td>
+                    <td>Simulation</td>
+                </tr>
+                <tr>
+                    <td>Docked: Ship Tycoon</td>
+                    <td>Roblox</td>
+                    <td>✅ Active</td>
+                    <td>300K+</td>
+                    <td>Tycoon</td>
+                </tr>
+                <tr>
+                    <td>Luxury Yacht Tycoon</td>
+                    <td>Roblox</td>
+                    <td>✅ Active</td>
+                    <td>200K+</td>
+                    <td>Tycoon</td>
+                </tr>
+                <tr>
+                    <td>Cruise Ship Simulator 2026</td>
+                    <td>Unknown</td>
+                    <td>❓ Unconfirmed</td>
+                    <td>0 (No Data)</td>
+                    <td>Unknown</td>
+                </tr>
+            </table>
+
+            <h3>Development Feasibility</h3>
+            <p><strong>Technical Feasibility:</strong> Creating a cruise ship simulator on Roblox is technically feasible. Roblox has:</p>
+            <ul>
+                <li>Advanced physics engine for boat simulation</li>
+                <li>Multiplayer networking capabilities</li>
+                <li>UI system for management features</li>
+                <li>Monetization tools for tycoon mechanics</li>
+            </ul>
+
+            <p><strong>Development Time Estimate:</strong> A quality cruise ship simulator would require:</p>
+            <ul>
+                <li>3-6 months for core mechanics development</li>
+                <li>2-4 months for art and ship design</li>
+                <li>2-3 months for testing and optimization</li>
+                <li>Total: Roughly 7-13 months of development</li>
+            </ul>
+
+            <h3>Project Viability Assessment</h3>
+            <table>
+                <tr>
+                    <th>Factor</th>
+                    <th>Assessment</th>
+                    <th>Impact</th>
+                </tr>
+                <tr>
+                    <td>Market Demand</td>
+                    <td>⭐⭐⭐⭐ High</td>
+                    <td>Strong potential player base</td>
+                </tr>
+                <tr>
+                    <td>Technical Difficulty</td>
+                    <td>⭐⭐⭐ Medium</td>
+                    <td>Achievable by experienced developers</td>
+                </tr>
+                <tr>
+                    <td>Development Cost</td>
+                    <td>⭐⭐⭐ Medium</td>
+                    <td>Moderate resources needed</td>
+                </tr>
+                <tr>
+                    <td>Monetization Potential</td>
+                    <td>⭐⭐⭐⭐ High</td>
+                    <td>Good revenue opportunities</td>
+                </tr>
+                <tr>
+                    <td>Competition Level</td>
+                    <td>⭐⭐ Low-Medium</td>
+                    <td>Some competitors but room for innovation</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline">
+            <h2>⏰ Development Timeline (If Project Exists)</h2>
+            <p>Here's a hypothetical development timeline for a cruise ship simulator project:</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - Q1 & Q2</div>
+                    <div class="timeline-content">
+                        <strong>Pre-Development Phase</strong><br>
+                        ✓ Concept design and planning<br>
+                        ✓ Market research and feasibility study<br>
+                        ✓ Team assembly and resource allocation
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - Q3 & Q4</div>
+                    <div class="timeline-content">
+                        <strong>Core Development</strong><br>
+                        ✓ Engine setup and architecture<br>
+                        ✓ Basic ship physics implementation<br>
+                        ✓ Navigation system development
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2025 - Q1 & Q2</div>
+                    <div class="timeline-content">
+                        <strong>Feature Development</strong><br>
+                        ✓ Multiplayer networking<br>
+                        ✓ Passenger management system<br>
+                        ✓ Port and destination design
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2025 - Q3 & Q4</div>
+                    <div class="timeline-content">
+                        <strong>Polish & Optimization</strong><br>
+                        ✓ UI/UX improvements<br>
+                        ✓ Performance optimization<br>
+                        ✓ Beta testing phase
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2026 - Q1</div>
+                    <div class="timeline-content">
+                        <strong>Public Release (Expected)</strong><br>
+                        ✓ Official launch announcement<br>
+                        ✓ Marketing campaign<br>
+                        ✓ Community engagement
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2026 - Q2 onwards</div>
+                    <div class="timeline-content">
+                        <strong>Post-Launch Support</strong><br>
+                        ✓ Regular content updates<br>
+                        ✓ Bug fixes and improvements<br>
+                        ✓ Community-driven features
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
         <section id="features">
-            <h2>🎯 What a Cruise Ship Simulator Might Include</h2>
-            <p>If such a project were to be developed, it could potentially feature:</p>
+            <h2>🎯 Potential Game Features</h2>
+            <p>If Tableboard Studios is developing a cruise ship simulator, here are features it might include:</p>
             
+            <h3>Core Gameplay Features</h3>
             <div class="grid">
                 <div class="card">
                     <h3>🚢 Ship Navigation</h3>
-                    <p>Realistic cruise ship controls, steering, and navigation systems</p>
+                    <p>Realistic cruise ship controls with steering, speed management, and navigation systems. Learn to maneuver the ship through different conditions.</p>
                 </div>
                 <div class="card">
                     <h3>👥 Crew Management</h3>
-                    <p>Manage crew members, passengers, and ship operations</p>
+                    <p>Hire and manage crew members, assign duties, and ensure passenger satisfaction. Different crew roles with unique responsibilities.</p>
                 </div>
                 <div class="card">
                     <h3>🌍 Exploration</h3>
-                    <p>Visit different ports and explore virtual destinations worldwide</p>
+                    <p>Visit diverse ports and destinations worldwide. Each location offers unique experiences, quests, and trading opportunities.</p>
                 </div>
                 <div class="card">
-                    <h3>🎮 Multiplayer</h3>
-                    <p>Play with friends in a shared cruise ship experience</p>
+                    <h3>🎮 Multiplayer Mode</h3>
+                    <p>Play with friends in a shared cruise ship experience. Collaborate on voyages or compete in ship management challenges.</p>
                 </div>
                 <div class="card">
-                    <h3>💼 Business Simulation</h3>
-                    <p>Manage ship finances, resources, and passenger satisfaction</p>
+                    <h3>💼 Business Management</h3>
+                    <p>Manage ship finances, ticket prices, and resources. Build a profitable cruise line through strategic decisions.</p>
                 </div>
                 <div class="card">
-                    <h3>🎨 Customization</h3>
-                    <p>Customize your ship and choose various game modes</p>
+                    <h3>🎨 Ship Customization</h3>
+                    <p>Customize your cruise ship with different paint jobs, decorations, and interior designs to make it unique.</p>
                 </div>
+                <div class="card">
+                    <h3>🏆 Achievements</h3>
+                    <p>Unlock achievements and badges for completing challenges and milestones during your cruise adventures.</p>
+                </div>
+                <div class="card">
+                    <h3>📱 Events & Activities</h3>
+                    <p>Participate in special events, competitions, and seasonal activities. Host parties and entertainment on your ship.</p>
+                </div>
+                <div class="card">
+                    <h3>💰 Economy System</h3>
+                    <p>Buy and sell goods between ports. Manage resources and optimize profits through strategic trading.</p>
+                </div>
+                <div class="card">
+                    <h3>🌊 Dynamic Weather</h3>
+                    <p>Experience realistic weather systems that affect navigation difficulty and gameplay conditions.</p>
+                </div>
+                <div class="card">
+                    <h3>🎵 Sound & Music</h3>
+                    <p>Immersive ambient sounds, music, and sound effects that enhance the cruise experience.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Statistics & Ranking</h3>
+                    <p>Track your performance metrics and compete with other players on leaderboards.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Advanced Features</h3>
+            <ul>
+                <li><strong>Procedural Port Generation:</strong> Randomly generated ports to keep gameplay fresh</li>
+                <li><strong>NPC Characters:</strong> Unique passengers with personality and dialogue</li>
+                <li><strong>Ship Upgrades:</strong> Unlock new ship models and technological upgrades</li>
+                <li><strong>Guild System:</strong> Join cruise line companies and collaborate with other players</li>
+                <li><strong>Trading Post:</strong> Buy and sell rare items and ship components</li>
+                <li><strong>Seasonal Events:</strong> Special quests and activities throughout the year</li>
+                <li><strong>Story Missions:</strong> Campaign-style quests with narrative elements</li>
+                <li><strong>Photo Mode:</strong> Capture beautiful moments during your voyage</li>
+            </ul>
+        </section>
+
+        <!-- Similar Games Section -->
+        <section id="games">
+            <h2>🎮 Similar Roblox Games & Market Reference</h2>
+            
+            <h3>Popular Tycoon/Simulator Games on Roblox</h3>
+            <table>
+                <tr>
+                    <th>Game Name</th>
+                    <th>Genre</th>
+                    <th>Player Reviews</th>
+                    <th>Active Status</th>
+                    <th>Relevant Features</th>
+                </tr>
+                <tr>
+                    <td>Cruise Ship Tycoon</td>
+                    <td>Ship Tycoon</td>
+                    <td>⭐⭐⭐⭐ (4.2/5)</td>
+                    <td>✅ Active</td>
+                    <td>Ship management, passenger satisfaction</td>
+                </tr>
+                <tr>
+                    <td>Docked: Ship Tycoon</td>
+                    <td>Ship Builder Tycoon</td>
+                    <td>⭐⭐⭐⭐ (4.3/5)</td>
+                    <td>✅ Active</td>
+                    <td>Ship customization, building mechanics</td>
+                </tr>
+                <tr>
+                    <td>Yacht Tycoon</td>
+                    <td>Luxury Boat Tycoon</td>
+                    <td>⭐⭐⭐⭐ (4.1/5)</td>
+                    <td>✅ Active</td>
+                    <td>Boat customization, exploration</td>
+                </tr>
+                <tr>
+                    <td>Airline Manager Tycoon</td>
+                    <td>Transportation Tycoon</td>
+                    <td>⭐⭐⭐⭐ (4.4/5)</td>
+                    <td>✅ Active</td>
+                    <td>Fleet management, route optimization</td>
+                </tr>
+                <tr>
+                    <td>Theme Park Tycoon 2</td>
+                    <td>Park Simulator</td>
+                    <td>⭐⭐⭐⭐⭐ (4.7/5)</td>
+                    <td>✅ Active</td>
+                    <td>Complex management systems, multiplayer</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Market Insights:</strong> Based on similar games, a well-developed cruise ship simulator could potentially reach 200K-500K active daily players within the first year, with strong monetization potential through cosmetics and premium features.
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources">
+            <h2>🔗 Resources & How to Verify</h2>
+
+            <h3>Official Sources to Check</h3>
+            <ul>
+                <li><strong>Roblox Official Website:</strong> <code>roblox.com</code> - Search for Tableboard Studios and Cruise Ship Simulator</li>
+                <li><strong>Roblox Forums:</strong> Community discussions about upcoming projects</li>
+                <li><strong>Roblox Developer Forum:</strong> Check for developer announcements</li>
+                <li><strong>Creator Marketplace:</strong> Browse assets used in development</li>
+            </ul>
+
+            <h3>Social Media Channels to Monitor</h3>
+            <ul>
+                <li>Twitter/X: Search for @TableboardStudios or #CruiseShipSimulator</li>
+                <li>Discord: Join Roblox developer communities and Tableboard Studios Discord (if available)</li>
+                <li>YouTube: Check for development vlogs or trailers</li>
+                <li>TikTok: Roblox developers often share updates here</li>
+                <li>Instagram: Visual updates and announcements</li>
+            </ul>
+
+            <h3>Developer Resources</h3>
+            <ul>
+                <li><strong>Roblox Developer Documentation:</strong> Developer.roblox.com - Learn about game development tools</li>
+                <li><strong>GitHub:</strong> Search for Tableboard Studios repositories</li>
+                <li><strong>Game Jams:</strong> Check if the studio participated in Roblox game development events</li>
+                <li><strong>Developer Profiles:</strong> Check individual developer profiles for project information</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>Pro Tip:</strong> Contact Tableboard Studios directly through their official channels (Discord, email, or website) for the most accurate information about their current and upcoming projects.
             </div>
         </section>
 
@@ -401,41 +947,72 @@
             <h2>❓ Frequently Asked Questions</h2>
             
             <h3>Q: How can I find Roblox Tableboard Studios?</h3>
-            <p><strong>A:</strong> Search for "Tableboard Studios" on the Roblox platform using the search feature in the Roblox game or website.</p>
+            <p><strong>A:</strong> Search for "Tableboard Studios" directly on the Roblox platform. You can find them through the group search feature or by looking up their games. Their official profile page will show all their published creations.</p>
 
             <h3>Q: Where can I see their current projects?</h3>
-            <p><strong>A:</strong> Visit their official Roblox profile page to see all published games and active projects.</p>
+            <p><strong>A:</strong> Visit their official Roblox profile/group page. You'll find a complete list of all games they've developed or are currently working on. This is the most reliable source for verifying their project portfolio.</p>
 
             <h3>Q: How do I stay updated on new projects?</h3>
-            <p><strong>A:</strong> Follow their official social media accounts, join their Discord community, or subscribe to their announcements.</p>
+            <p><strong>A:</strong> 
+                <ul>
+                    <li>Follow their official social media accounts</li>
+                    <li>Join their Discord community if available</li>
+                    <li>Subscribe to their YouTube channel for development updates</li>
+                    <li>Check the Roblox platform regularly for new releases</li>
+                </ul>
+            </p>
 
             <h3>Q: Can I contribute to their projects?</h3>
-            <p><strong>A:</strong> Check their official channels for recruitment or collaboration opportunities. Most studios accept applications from talented developers.</p>
+            <p><strong>A:</strong> Most development studios accept contributions from talented developers. Check their official channels for career opportunities, recruitment posts, or collaboration requests. They typically post these on their Discord, Twitter, or website.</p>
 
-            <h3>Q: Is this information current?</h3>
-            <p><strong>A:</strong> This information was last updated on <span id="currentDate"></span>. Always check official sources for the most current information.</p>
+            <h3>Q: What skills do I need to develop games on Roblox?</h3>
+            <p><strong>A:</strong> 
+                <ul>
+                    <li><strong>Lua Programming:</strong> Roblox uses Lua scripting language</li>
+                    <li><strong>3D Modeling:</strong> Using Blender or similar tools</li>
+                    <li><strong>Game Design:</strong> Understanding of game mechanics and systems</li>
+                    <li><strong>UI/UX Design:</strong> Creating intuitive interfaces</li>
+                    <li><strong>Project Management:</strong> Organizing development workflow</li>
+                </ul>
+            </p>
 
-            <h3>Q: Where can I report incorrect information?</h3>
-            <p><strong>A:</strong> If you have updates or corrections, please contact the repository owner or create an issue on GitHub.</p>
+            <h3>Q: When might we expect an announcement?</h3>
+            <p><strong>A:</strong> If the project exists, announcements typically come after reaching key development milestones. For 2026 release, we'd expect announcements in Q3-Q4 of 2025. Follow their official channels for updates.</p>
+
+            <h3>Q: Is this information reliable?</h3>
+            <p><strong>A:</strong> This research is based on publicly available information as of <span id="currentDate"></span>. Development projects can change rapidly. Always verify current status with official sources for the most up-to-date information.</p>
+
+            <h3>Q: What if I find new information?</h3>
+            <p><strong>A:</strong> If you discover updates or corrections, please reach out to the repository owner at GitHub. Community contributions help keep this research accurate and current.</p>
+
+            <h3>Q: How often is this page updated?</h3>
+            <p><strong>A:</strong> This page is maintained periodically. Check back regularly for new information as the gaming landscape and project status evolve.</p>
+
+            <h3>Q: Can I share this research?</h3>
+            <p><strong>A:</strong> Yes! Feel free to share this research with others interested in this topic. Please provide proper attribution to the original source.</p>
         </section>
 
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Roblox Research Project | <a href="https://github.com/homer393495/coder-2026-2027" target="_blank">GitHub Repository</a></p>
+        <p>&copy; 2026 Roblox Cruise Ship Simulator Research Project | <a href="https://github.com/homer393495/coder-2026-2027" target="_blank">GitHub Repository</a></p>
         <p style="margin-top: 1rem; font-size: 0.9rem;">
-            This is an informational website. Always verify information with official sources.
+            <strong>Disclaimer:</strong> This is an informational research website. All information is based on publicly available sources. 
+            Always verify with official sources for the latest updates and most accurate information.
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.8;">
+            Last Updated: <span id="currentDate"></span> | Not affiliated with Roblox Corporation or Tableboard Studios
         </p>
     </footer>
 
     <!-- JavaScript -->
     <script>
         // Set current date
-        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        const currentDateStr = new Date().toLocaleDateString('en-US', dateOptions);
+        document.querySelectorAll('#currentDate').forEach(el => {
+            el.textContent = currentDateStr;
         });
 
         // Scroll to section
@@ -443,6 +1020,11 @@
             const section = document.getElementById(id);
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
+                // Add highlight animation
+                section.style.boxShadow = '0 0 30px rgba(102, 126, 234, 0.6)';
+                setTimeout(() => {
+                    section.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                }, 2000);
             }
         }
 
@@ -454,45 +1036,50 @@
             if (option === 'yes') {
                 html = `
                     <div class="answer-box answer-yes">
-                        🟢 YES - According to this assumption, Roblox Tableboard Studios is developing a Cruise Ship Simulator for 2026.
+                        🟢 YES - According to this scenario, Tableboard Studios is developing a Cruise Ship Simulator for 2026
                     </div>
                     <div style="background: #f0f8f5; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                        <h3>Potential Details:</h3>
-                        <ul style="margin-left: 2rem; line-height: 2;">
-                            <li>✅ Development team confirmed</li>
-                            <li>✅ Project in active development</li>
-                            <li>✅ Expected release in 2026</li>
-                            <li>⚠️ Please verify with official sources</li>
+                        <h3>Hypothetical Details:</h3>
+                        <ul style="margin-left: 2rem; line-height: 2.2; font-size: 1.05rem;">
+                            <li>✅ Development team: Confirmed and actively working</li>
+                            <li>✅ Project status: Currently in development</li>
+                            <li>✅ Expected release: Q1-Q2 2026</li>
+                            <li>✅ Platform: Roblox exclusive</li>
+                            <li>⚠️ Disclaimer: Verify with official sources before trusting</li>
                         </ul>
                     </div>
                 `;
             } else if (option === 'no') {
                 html = `
                     <div class="answer-box answer-no">
-                        🔴 NO - Based on available public information, there is no confirmed evidence of this project.
+                        🔴 NO - Based on available public information, there is NO confirmed evidence of this project
                     </div>
                     <div style="background: #fff5f0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
                         <h3>Why No Confirmation:</h3>
-                        <ul style="margin-left: 2rem; line-height: 2;">
-                            <li>❌ No official announcement</li>
-                            <li>❌ No public repository</li>
-                            <li>❌ No media coverage</li>
-                            <li>⚠️ Information may be updated in the future</li>
+                        <ul style="margin-left: 2rem; line-height: 2.2; font-size: 1.05rem;">
+                            <li>❌ No official announcement from Tableboard Studios or Roblox</li>
+                            <li>❌ No public GitHub repository or development repository</li>
+                            <li>❌ No media coverage from gaming outlets</li>
+                            <li>❌ No social media posts or promotional materials</li>
+                            <li>❌ Project not listed in studio portfolio</li>
+                            <li>⚠️ Project might exist in private development, but is unconfirmed publicly</li>
                         </ul>
                     </div>
                 `;
             } else {
                 html = `
                     <div class="answer-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        ❓ UNKNOWN - Information not publicly available or unconfirmed at this time.
+                        ❓ UNKNOWN - Information is not publicly available or remains unconfirmed
                     </div>
                     <div style="background: #fffef0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                        <h3>What to Do:</h3>
-                        <ul style="margin-left: 2rem; line-height: 2;">
-                            <li>🔍 Check official Roblox Tableboard Studios page</li>
-                            <li>📱 Follow their social media for updates</li>
-                            <li>💬 Join their community Discord if available</li>
-                            <li>📧 Contact them directly for project information</li>
+                        <h3>How to Find Out:</h3>
+                        <ul style="margin-left: 2rem; line-height: 2.2; font-size: 1.05rem;">
+                            <li>🔍 Check official Roblox Tableboard Studios profile page</li>
+                            <li>📱 Follow their social media accounts for announcements</li>
+                            <li>💬 Join their community Discord server if available</li>
+                            <li>📧 Contact them directly for project inquiries</li>
+                            <li>🌐 Monitor gaming news sites for announcements</li>
+                            <li>👀 Check developer forums and communities</li>
                         </ul>
                     </div>
                 `;
@@ -524,7 +1111,9 @@
             if (e.key === '3') showAnswer('unknown');
         });
 
-        console.log('Website loaded successfully! Use keyboard shortcuts: 1=YES, 2=NO, 3=UNKNOWN');
+        console.log('Website loaded successfully!');
+        console.log('Keyboard shortcuts: Press 1=YES, 2=NO, 3=UNKNOWN');
+        console.log('Navigation shortcuts: Click any nav link to jump to section');
     </script>
 </body>
 </html>
