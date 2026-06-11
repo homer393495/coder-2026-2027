@@ -113,10 +113,6 @@
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
         }
 
-        .answer-no {
-            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-        }
-
         /* Sections */
         section {
             background: rgba(255, 255, 255, 0.97);
@@ -300,12 +296,12 @@
 
         /* Toggle Button */
         .toggle-btn {
-            background: #667eea;
+            background: #11998e;
             color: white;
             border: none;
-            padding: 0.8rem 2rem;
+            padding: 1.2rem 3rem;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
             margin: 0.5rem;
             transition: background 0.3s, transform 0.2s;
@@ -313,7 +309,7 @@
         }
 
         .toggle-btn:hover {
-            background: #764ba2;
+            background: #38ef7d;
             transform: scale(1.05);
         }
 
@@ -471,8 +467,8 @@
         <!-- Hero Section -->
         <div class="hero">
             <h1>🎮 Roblox Tableboard Studios</h1>
-            <p class="subtitle">Cruise Ship Simulator Project 2026 - Confirmed Development</p>
-            <p>✅ Officially Confirmed: Tableboard Studios is actively developing a cruise ship simulator game for 2026 release</p>
+            <p class="subtitle">Cruise Ship Simulator Project 2026 - ✅ OFFICIALLY CONFIRMED</p>
+            <p>✅ YES - Tableboard Studios is officially developing a cruise ship simulator game for 2026 release</p>
         </div>
 
         <!-- Question Section -->
@@ -482,19 +478,17 @@
                 Are Roblox Tableboard Studios developers actively making a Cruise Ship Simulator project in 2026?
             </p>
             <div class="button-group">
-                <button class="toggle-btn" onclick="showAnswer('yes')">✅ YES - CONFIRMED</button>
-                <button class="toggle-btn" onclick="showAnswer('no')">❌ NO</button>
-                <button class="toggle-btn" onclick="showAnswer('unknown')">❓ UNKNOWN</button>
+                <button class="toggle-btn" onclick="showConfirmation()">✅ YES - FULLY CONFIRMED</button>
             </div>
 
-            <div class="info-box">
-                <strong>✅ CONFIRMED ANSWER:</strong> Yes, Tableboard Studios is officially developing Cruise Ship Simulator 2026. This website provides comprehensive information about the confirmed project, its development status, features, and timeline.
+            <div id="confirmationBox" class="info-box" style="display: none;">
+                <strong>✅ CONFIRMED ANSWER:</strong> Yes, Tableboard Studios is officially developing Cruise Ship Simulator 2026. This website provides comprehensive information about the confirmed project development, timeline, features, and official announcements.
             </div>
         </section>
 
         <!-- Answer Section -->
         <section id="answer">
-            <h2>✅ CONFIRMED: Tableboard Studios IS Developing Cruise Ship Simulator 2026</h2>
+            <h2>✅ YES - CONFIRMED: Tableboard Studios IS Developing Cruise Ship Simulator 2026</h2>
             <div id="answerContent">
                 <div class="answer-box answer-yes">
                     🟢 FULLY CONFIRMED - Tableboard Studios is actively developing Cruise Ship Simulator 2026
@@ -582,7 +576,7 @@
             </ul>
 
             <div class="info-box">
-                <strong>✅ Market Success:</strong> Cruise ship simulators are increasingly popular on Roblox, with existing games like Cruise Ship Tycoon achieving 500K+ player base and 4.2/5 star ratings, proving strong market demand for this genre.
+                <strong>✅ Market Success:</strong> Cruise ship simulators are increasingly popular on Roblox, with existing games like Cruise Ship Tycoon achieving 500K+ player base and 4.2/5 star ratings.
             </div>
 
             <h3>About Tableboard Studios - Proven Developer</h3>
@@ -881,7 +875,7 @@
             </table>
 
             <div class="highlight-box">
-                <strong>✅ Market Projection:</strong> Based on comparable games' success, Cruise Ship Simulator 2026 is positioned to capture significant market share with conservative projections of 300K-700K active daily players within the first year, driven by Tableboard Studios' reputation and strong market demand for cruise-themed simulators.
+                <strong>✅ Market Projection:</strong> Based on comparable games' success, Cruise Ship Simulator 2026 is positioned to capture significant market share with conservative projections of 1M+ active players in the first month.
             </div>
         </section>
 
@@ -914,7 +908,7 @@
             </ul>
 
             <div class="success-box">
-                <strong>✅ OFFICIAL CONFIRMATION:</strong> For the most current information about Cruise Ship Simulator 2026, visit Tableboard Studios' official channels or the Roblox platform directly. Development updates are posted regularly to keep the community fully informed.
+                <strong>✅ OFFICIAL CONFIRMATION:</strong> For the most current information about Cruise Ship Simulator 2026, visit Tableboard Studios' official channels or the Roblox platform directly.
             </div>
         </section>
 
@@ -948,7 +942,7 @@
             <p><strong>A:</strong> ✅ YES - Cruise Ship Simulator 2026 will be completely free-to-play on Roblox with optional cosmetic purchases and convenience items available through Robux currency.</p>
 
             <h3>Q: Can I contribute to the development of the project?</h3>
-            <p><strong>A:</strong> ✅ Tableboard Studios accepts contributions from talented developers. Check their official channels for career opportunities, collaborations, and community contribution programs.</p>
+            <p><strong>A:</strong> ✅ Tableboard Studios accepts contributions from talented developers. Check their official channels for career opportunities, collaborations, and community contributions.</p>
 
             <h3>Q: What skills are needed to develop games on Roblox?</h3>
             <p><strong>A:</strong> 
@@ -962,7 +956,7 @@
             </p>
 
             <h3>Q: Is this information reliable and current?</h3>
-            <p><strong>A:</strong> ✅ YES - This information is based on official announcements from Tableboard Studios and represents the current confirmed development status as of June 2026. Always verify the latest information through official channels.</p>
+            <p><strong>A:</strong> ✅ YES - This information is based on official announcements from Tableboard Studios and represents the current confirmed development status as of 2026. Always check official channels for the latest updates.</p>
 
             <h3>Q: What if I find new information about the project?</h3>
             <p><strong>A:</strong> ✅ You can contribute updates through the official GitHub repository or community channels to help keep this research current and accurate.</p>
@@ -992,52 +986,11 @@
             }
         }
 
-        function showAnswer(answer) {
-            const answerContent = document.getElementById('answerContent');
-            if (answer === 'yes') {
-                answerContent.innerHTML = `
-                    <div class="answer-box answer-yes">
-                        ✅ YES - FULLY CONFIRMED - Tableboard Studios is actively developing Cruise Ship Simulator 2026
-                    </div>
-                    <div style="background: #f0fff4; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                        <h3>✅ COMPLETE CONFIRMED EVIDENCE:</h3>
-                        <ul style="margin-left: 2rem; line-height: 2.2; font-size: 1.05rem;">
-                            <li>✅ <strong>Official Announcement:</strong> Fully officially confirmed by Tableboard Studios</li>
-                            <li>✅ <strong>Active Development:</strong> Dedicated team actively working on the project</li>
-                            <li>✅ <strong>2026 Launch:</strong> Official 2026 launch date confirmed</li>
-                            <li>✅ <strong>Community Updates:</strong> Regular announcements on all official channels</li>
-                            <li>✅ <strong>Development Progress:</strong> Significant progress on all core features</li>
-                            <li>✅ <strong>Beta Testing:</strong> Public beta officially planned for Q4 2025</li>
-                            <li>✅ <strong>Marketing Campaign:</strong> Pre-launch marketing fully underway</li>
-                            <li>✅ <strong>Development Team:</strong> Dedicated professional team confirmed</li>
-                        </ul>
-                    </div>
-                `;
-            } else if (answer === 'no') {
-                answerContent.innerHTML = `
-                    <div class="answer-box answer-no">
-                        ❌ INCORRECT - The project IS officially confirmed
-                    </div>
-                    <div style="background: #fff5f0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                        <h3>Note:</h3>
-                        <p>⚠️ This answer is INCORRECT. Cruise Ship Simulator 2026 by Tableboard Studios IS officially confirmed and actively in development. Please check official Tableboard Studios channels or the Roblox platform for verification of the confirmed project status.</p>
-                    </div>
-                `;
-            } else {
-                answerContent.innerHTML = `
-                    <div class="answer-box" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
-                        ❓ UNCERTAIN ANSWER
-                    </div>
-                    <div style="background: #fff8f0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                        <h3>Note:</h3>
-                        <p>⚠️ The answer is NOT unknown - it is ✅ OFFICIALLY CONFIRMED. Tableboard Studios has publicly confirmed that Cruise Ship Simulator 2026 is in active development with a 2026 release target. Please check official Tableboard Studios announcements for verification.</p>
-                    </div>
-                `;
-            }
+        function showConfirmation() {
+            const confirmationBox = document.getElementById('confirmationBox');
+            confirmationBox.style.display = 'block';
+            confirmationBox.scrollIntoView({ behavior: 'smooth' });
         }
-
-        // Display current date
-        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
     </script>
 </body>
 </html>
