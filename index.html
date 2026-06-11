@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Application with Answer Key</title>
+    <title>Roblox Cruise Ship Simulator Quiz</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,16 +24,17 @@
         .container {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             width: 100%;
             padding: 40px;
         }
 
         h1 {
-            color: #333;
+            color: #1a1a2e;
             margin-bottom: 10px;
             text-align: center;
+            font-size: 28px;
         }
 
         .subtitle {
@@ -41,6 +42,7 @@
             color: #666;
             margin-bottom: 30px;
             font-size: 14px;
+            font-style: italic;
         }
 
         .mode-selector {
@@ -52,9 +54,9 @@
 
         .mode-btn {
             padding: 12px 25px;
-            border: 2px solid #667eea;
+            border: 2px solid #e74c3c;
             background: white;
-            color: #667eea;
+            color: #e74c3c;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
@@ -63,13 +65,13 @@
         }
 
         .mode-btn.active {
-            background: #667eea;
+            background: #e74c3c;
             color: white;
         }
 
         .mode-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
 
         .question-container {
@@ -77,7 +79,7 @@
         }
 
         .question-number {
-            color: #667eea;
+            color: #e74c3c;
             font-weight: 700;
             margin-bottom: 8px;
             font-size: 14px;
@@ -107,8 +109,8 @@
         }
 
         .option:hover {
-            border-color: #667eea;
-            background: #f5f5ff;
+            border-color: #e74c3c;
+            background: #fff5f3;
         }
 
         .option input[type="radio"] {
@@ -167,14 +169,14 @@
         }
 
         .btn-submit {
-            background: #667eea;
+            background: #e74c3c;
             color: white;
         }
 
         .btn-submit:hover {
-            background: #5568d3;
+            background: #c0392b;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
 
         .btn-reset {
@@ -208,16 +210,16 @@
             background: white;
             padding: 12px 15px;
             margin-bottom: 10px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #e74c3c;
             border-radius: 4px;
         }
 
         .answer-item strong {
-            color: #667eea;
+            color: #e74c3c;
         }
 
         .score-display {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
             padding: 30px;
             border-radius: 15px;
@@ -262,8 +264,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>📚 Quiz Master</h1>
-        <p class="subtitle">Interactive Quiz Application with Answer Key</p>
+        <h1>🚢 Roblox Cruise Ship Simulator</h1>
+        <p class="subtitle">Is Tableboard Studios the Developer? 2026 Project Quiz</p>
 
         <div class="mode-selector">
             <button class="mode-btn active" onclick="switchMode('quiz')">Quiz Mode</button>
@@ -294,28 +296,43 @@
         // Quiz Data
         const quizData = [
             {
-                question: "What is the capital of France?",
-                options: ["London", "Berlin", "Paris", "Madrid"],
+                question: "Is Tableboard Studios the developer of Roblox Cruise Ship Simulator?",
+                options: ["Yes", "No", "Uncertain", "Not applicable"],
+                correct: 0
+            },
+            {
+                question: "What type of game is Roblox Cruise Ship Simulator?",
+                options: ["Simulation/Tycoon", "FPS Shooter", "Racing Game", "Role-Playing Game"],
+                correct: 0
+            },
+            {
+                question: "Is there a 2026 project update planned for Cruise Ship Simulator?",
+                options: ["Yes", "No", "Unknown", "Cancelled"],
                 correct: 2
             },
             {
-                question: "Which planet is known as the Red Planet?",
-                options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                question: "What platform is Cruise Ship Simulator built on?",
+                options: ["Unity", "Unreal Engine", "Roblox", "Custom Engine"],
+                correct: 2
+            },
+            {
+                question: "Does Tableboard Studios focus on creating simulation games on Roblox?",
+                options: ["Yes, primarily", "No, they focus on other genres", "Uncertain", "They don't create games"],
+                correct: 0
+            },
+            {
+                question: "In what year was the Cruise Ship Simulator game released?",
+                options: ["2022", "2023", "2024", "2025"],
                 correct: 1
             },
             {
-                question: "What is the largest ocean on Earth?",
-                options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-                correct: 3
+                question: "What is the main objective in Cruise Ship Simulator?",
+                options: ["Build and manage a cruise ship empire", "Battle other players", "Collect treasure", "Complete racing courses"],
+                correct: 0
             },
             {
-                question: "Who wrote 'Romeo and Juliet'?",
-                options: ["Jane Austen", "William Shakespeare", "Mark Twain", "Charles Dickens"],
-                correct: 1
-            },
-            {
-                question: "What is the chemical symbol for Gold?",
-                options: ["Go", "Gd", "Au", "Ag"],
+                question: "Is Tableboard Studios planning updates for their games in 2026?",
+                options: ["Yes, new features planned", "No updates planned", "Unknown/Unconfirmed", "Studio dissolved"],
                 correct: 2
             }
         ];
@@ -427,14 +444,14 @@
 
         function displayAnswerKey() {
             const container = document.getElementById('answerKeyDisplay');
-            container.innerHTML = '<h3>Answer Key</h3>';
+            container.innerHTML = '<h3>Answer Key - Roblox Cruise Ship Simulator Quiz</h3>';
 
             quizData.forEach((item, index) => {
                 const answerItem = document.createElement('div');
                 answerItem.className = 'answer-item';
                 answerItem.innerHTML = `
                     <div><strong>Question ${index + 1}:</strong> ${item.question}</div>
-                    <div style="margin-top: 8px; color: #4caf50; font-weight: 600;">
+                    <div style="margin-top: 8px; color: #e74c3c; font-weight: 600;">
                         ✓ Correct Answer: ${item.options[item.correct]}
                     </div>
                 `;
