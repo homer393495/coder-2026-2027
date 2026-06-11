@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Tableboard Studios - Cruise Ship Simulator 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header/Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 0.8s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: #764ba2;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Answer Box */
+        .answer-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .answer-yes {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .answer-no {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
+
+        /* Sections */
+        section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-in-out;
+        }
+
+        section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 0.5rem;
+        }
+
+        section h3 {
+            color: #764ba2;
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 1rem 0.5rem;
+            transition: background 0.3s, transform 0.2s;
+            font-weight: 600;
+        }
+
+        .toggle-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Button Group */
+        .button-group {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        /* Hidden Content */
+        .hidden {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 15px 15px 0 0;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a onclick="scrollToSection('question')">Question</a></li>
+            <li><a onclick="scrollToSection('answer')">Answer</a></li>
+            <li><a onclick="scrollToSection('research')">Research</a></li>
+            <li><a onclick="scrollToSection('features')">Features</a></li>
+            <li><a onclick="scrollToSection('faq')">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🎮 Roblox Tableboard Studios</h1>
+            <p class="subtitle">Cruise Ship Simulator Project 2026</p>
+            <p>Discover the latest information about this exciting Roblox development project</p>
+        </div>
+
+        <!-- Question Section -->
+        <section id="question">
+            <h2>❓ The Question</h2>
+            <p style="font-size: 1.2rem; font-weight: 600; color: #667eea;">
+                Are Roblox Tableboard Studios developers making a Cruise Ship Simulator project in 2026?
+            </p>
+            <div class="button-group">
+                <button class="toggle-btn" onclick="showAnswer('yes')">YES</button>
+                <button class="toggle-btn" onclick="showAnswer('no')">NO</button>
+                <button class="toggle-btn" onclick="showAnswer('unknown')">UNKNOWN</button>
+            </div>
+        </section>
+
+        <!-- Answer Section -->
+        <section id="answer">
+            <h2>✅ Answer</h2>
+            <div id="answerContent">
+                <div class="answer-box answer-no">
+                    🔴 NO - Based on available public information as of June 2026, there is no confirmed evidence that Roblox Tableboard Studios is actively developing a Cruise Ship Simulator project.
+                </div>
+                <div style="background: #f0f4ff; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                    <h3>What We Know:</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li>❌ No official announcement from Roblox Tableboard Studios</li>
+                        <li>❌ No public GitHub repository dedicated to this project</li>
+                        <li>❌ No media coverage or press releases about this specific project</li>
+                        <li>⚠️ Information may change as development evolves</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research">
+            <h2>🔍 Research & Information</h2>
+            
+            <h3>About Roblox</h3>
+            <p>Roblox is an online platform and game creation system that allows developers to create and publish their own games. It has millions of users worldwide and hosts diverse game experiences.</p>
+
+            <h3>About Cruise Ship Simulators</h3>
+            <p>Cruise Ship Simulator games are popular in the gaming community, allowing players to experience the life of cruise ship captains and crew members. These simulators often include navigation, management, and exploration elements.</p>
+
+            <h3>Why Tableboard Studios?</h3>
+            <p>Roblox Tableboard Studios is one of many developer teams on the Roblox platform. If you're looking for their official projects, check their Roblox studio profile directly for announcements and updates.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>📱 How to Verify</h3>
+                    <p>Check official Roblox studio pages, GitHub repositories, and social media accounts for confirmed announcements.</p>
+                </div>
+                <div class="card">
+                    <h3>🔗 Resources</h3>
+                    <p>Visit the official Roblox website and search for "Tableboard Studios" to find their profile and projects.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Project Status</h3>
+                    <p>Development status may be updated regularly. Always check the latest sources for current information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2>🎯 What a Cruise Ship Simulator Might Include</h2>
+            <p>If such a project were to be developed, it could potentially feature:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>🚢 Ship Navigation</h3>
+                    <p>Realistic cruise ship controls, steering, and navigation systems</p>
+                </div>
+                <div class="card">
+                    <h3>👥 Crew Management</h3>
+                    <p>Manage crew members, passengers, and ship operations</p>
+                </div>
+                <div class="card">
+                    <h3>🌍 Exploration</h3>
+                    <p>Visit different ports and explore virtual destinations worldwide</p>
+                </div>
+                <div class="card">
+                    <h3>🎮 Multiplayer</h3>
+                    <p>Play with friends in a shared cruise ship experience</p>
+                </div>
+                <div class="card">
+                    <h3>💼 Business Simulation</h3>
+                    <p>Manage ship finances, resources, and passenger satisfaction</p>
+                </div>
+                <div class="card">
+                    <h3>🎨 Customization</h3>
+                    <p>Customize your ship and choose various game modes</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <h2>❓ Frequently Asked Questions</h2>
+            
+            <h3>Q: How can I find Roblox Tableboard Studios?</h3>
+            <p><strong>A:</strong> Search for "Tableboard Studios" on the Roblox platform using the search feature in the Roblox game or website.</p>
+
+            <h3>Q: Where can I see their current projects?</h3>
+            <p><strong>A:</strong> Visit their official Roblox profile page to see all published games and active projects.</p>
+
+            <h3>Q: How do I stay updated on new projects?</h3>
+            <p><strong>A:</strong> Follow their official social media accounts, join their Discord community, or subscribe to their announcements.</p>
+
+            <h3>Q: Can I contribute to their projects?</h3>
+            <p><strong>A:</strong> Check their official channels for recruitment or collaboration opportunities. Most studios accept applications from talented developers.</p>
+
+            <h3>Q: Is this information current?</h3>
+            <p><strong>A:</strong> This information was last updated on <span id="currentDate"></span>. Always check official sources for the most current information.</p>
+
+            <h3>Q: Where can I report incorrect information?</h3>
+            <p><strong>A:</strong> If you have updates or corrections, please contact the repository owner or create an issue on GitHub.</p>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Roblox Research Project | <a href="https://github.com/homer393495/coder-2026-2027" target="_blank">GitHub Repository</a></p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            This is an informational website. Always verify information with official sources.
+        </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Scroll to section
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Show answer based on selection
+        function showAnswer(option) {
+            const answerContent = document.getElementById('answerContent');
+            let html = '';
+
+            if (option === 'yes') {
+                html = `
+                    <div class="answer-box answer-yes">
+                        🟢 YES - According to this assumption, Roblox Tableboard Studios is developing a Cruise Ship Simulator for 2026.
+                    </div>
+                    <div style="background: #f0f8f5; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                        <h3>Potential Details:</h3>
+                        <ul style="margin-left: 2rem; line-height: 2;">
+                            <li>✅ Development team confirmed</li>
+                            <li>✅ Project in active development</li>
+                            <li>✅ Expected release in 2026</li>
+                            <li>⚠️ Please verify with official sources</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (option === 'no') {
+                html = `
+                    <div class="answer-box answer-no">
+                        🔴 NO - Based on available public information, there is no confirmed evidence of this project.
+                    </div>
+                    <div style="background: #fff5f0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                        <h3>Why No Confirmation:</h3>
+                        <ul style="margin-left: 2rem; line-height: 2;">
+                            <li>❌ No official announcement</li>
+                            <li>❌ No public repository</li>
+                            <li>❌ No media coverage</li>
+                            <li>⚠️ Information may be updated in the future</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="answer-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        ❓ UNKNOWN - Information not publicly available or unconfirmed at this time.
+                    </div>
+                    <div style="background: #fffef0; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                        <h3>What to Do:</h3>
+                        <ul style="margin-left: 2rem; line-height: 2;">
+                            <li>🔍 Check official Roblox Tableboard Studios page</li>
+                            <li>📱 Follow their social media for updates</li>
+                            <li>💬 Join their community Discord if available</li>
+                            <li>📧 Contact them directly for project information</li>
+                        </ul>
+                    </div>
+                `;
+            }
+
+            answerContent.innerHTML = html;
+            scrollToSection('answer');
+        }
+
+        // Add interactivity to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.style.color = 'white';
+                this.querySelectorAll('h3, p').forEach(el => el.style.color = 'white');
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                this.style.color = 'inherit';
+                this.querySelectorAll('h3').forEach(el => el.style.color = '#667eea');
+                this.querySelectorAll('p').forEach(el => el.style.color = 'inherit');
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') showAnswer('yes');
+            if (e.key === '2') showAnswer('no');
+            if (e.key === '3') showAnswer('unknown');
+        });
+
+        console.log('Website loaded successfully! Use keyboard shortcuts: 1=YES, 2=NO, 3=UNKNOWN');
+    </script>
+</body>
+</html>
