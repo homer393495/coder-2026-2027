@@ -1,166 +1,133 @@
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - Coder 2026-2027 initialized');
-    
-    // Button click handler
-    const actionBtn = document.getElementById('actionBtn');
-    if (actionBtn) {
-        actionBtn.addEventListener('click', handleButtonClick);
-    }
+const personList = document.getElementById("personList");
+const personNameInput = document.getElementById("personName");
+const addPersonBtn = document.getElementById("addPersonBtn");
 
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('nav a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', handleNavClick);
-    });
+const totalCount = document.getElementById("totalCount");
+const presentCount = document.getElementById("presentCount");
+const missingCount = document.getElementById("missingCount");
 
-    // Contact form submission
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleFormSubmit);
-    }
+const drillStatus = document.getElementById("drillStatus");
+const timerDisplay = document.getElementById("timer");
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+const resetBtn = document.getElementById("resetBtn");
 
-    // Project card interactions
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('click', handleCardClick);
-    });
+let people = [
+  { name: "John", status: "Missing" },
+  { name: "Sarah", status: "Missing" },
+  { name: "Michael", status: "Missing" }
+];
+
+let timer = 0;
+let interval = null;
+
+function renderPeople() {
+  personList.innerHTML = "";
+
+  people.forEach((person, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${person.name}</td>
+      <td class="${person.status === "Present" ? "present" : "missing"}">${person.status}</td>
+      <td>
+        <button class="action-btn present-btn" onclick="markPresent(${index})">Present</button>
+        <button class="action-btn missing-btn" onclick="markMissing(${index})">Missing</button>
+      </td>
+    `;
+
+    personList.appendChild(row);
+  });
+
+  updateSummary();
+}
+
+function updateSummary() {
+  totalCount.textContent = people.length;
+  presentCount.textContent = people.filter(p => p.status === "Present").length;
+  missingCount.textContent = people.filter(p => p.status === "Missing").length;
+}
+
+function markPresent(index) {
+  people[index].status = "Present";
+  renderPeople();
+}
+
+function markMissing(index) {
+  people[index].status = "Missing";
+  renderPeople();
+}
+
+function formatTime(seconds) {
+  const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const secs = String(seconds % 60).padStart(2, "0");
+  return `${mins}:${secs}`;
+}
+
+function startDrill() {
+  if (interval) return;
+
+  drillStatus.textContent = "Drill Active";
+  drillStatus.classList.remove("inactive");
+  drillStatus.classList.add("active");
+
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
+
+  interval = setInterval(() => {
+    timer++;
+    timerDisplay.textContent = formatTime(timer);
+  }, 1000);
+}
+
+function stopDrill() {
+  clearInterval(interval);
+  interval = null;
+
+  drillStatus.textContent = "Drill Stopped";
+  drillStatus.classList.remove("active");
+  drillStatus.classList.add("inactive");
+
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
+}
+
+function resetDrill() {
+  clearInterval(interval);
+  interval = null;
+  timer = 0;
+  timerDisplay.textContent = "00:00";
+
+  drillStatus.textContent = "Not Started";
+  drillStatus.classList.remove("active");
+  drillStatus.classList.add("inactive");
+
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
+
+  people = people.map(person => ({
+    ...person,
+    status: "Missing"
+  }));
+
+  renderPeople();
+}
+
+addPersonBtn.addEventListener("click", () => {
+  const name = personNameInput.value.trim();
+
+  if (name === "") {
+    alert("Please enter a name.");
+    return;
+  }
+
+  people.push({ name, status: "Missing" });
+  personNameInput.value = "";
+  renderPeople();
 });
 
-/**
- * Handle action button click
- */
-function handleButtonClick() {
-    const btn = event.target;
-    const messages = [
-        '🎉 Amazing!',
-        '⭐ Awesome!',
-        '🚀 Let\'s go!',
-        '💪 Keep it up!',
-        '🎯 On target!',
-        '✨ Great click!',
-        '👍 Nice work!'
-    ];
-    
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    btn.textContent = randomMessage;
-    
-    // Reset button after 1 second
-    setTimeout(() => {
-        btn.textContent = 'Click Me!';
-    }, 1000);
-    
-    // Add animation
-    btn.style.animation = 'none';
-    setTimeout(() => {
-        btn.style.animation = 'pulse 0.5s';
-    }, 10);
-}
+startBtn.addEventListener("click", startDrill);
+stopBtn.addEventListener("click", stopDrill);
+resetBtn.addEventListener("click", resetDrill);
 
-/**
- * Handle navigation link clicks with smooth scrolling
- */
-function handleNavClick(e) {
-    const href = this.getAttribute('href');
-    
-    // If it's an internal link
-    if (href.startsWith('#')) {
-        e.preventDefault();
-        const targetId = href.substring(1);
-        const targetSection = document.getElementById(targetId);
-        
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-            
-            // Optional: Log navigation
-            console.log(`Navigated to: ${targetId}`);
-        }
-    }
-}
-
-/**
- * Handle contact form submission
- */
-function handleFormSubmit(e) {
-    e.preventDefault();
-    
-    const formData = {
-        name: this.children[0].value,
-        email: this.children[1].value,
-        message: this.children[2].value
-    };
-    
-    console.log('Form submitted:', formData);
-    
-    // Simulate form submission
-    alert(`Thank you, ${formData.name}! Your message has been received.`);
-    
-    // Reset form
-    this.reset();
-}
-
-/**
- * Handle project card clicks
- */
-function handleCardClick() {
-    const title = this.querySelector('h3').textContent;
-    console.log(`Project clicked: ${title}`);
-    
-    // Add active state
-    this.style.backgroundColor = '#667eea';
-    this.style.color = 'white';
-    
-    // Reset after 2 seconds
-    setTimeout(() => {
-        this.style.backgroundColor = 'white';
-        this.style.color = 'inherit';
-    }, 2000);
-}
-
-/**
- * Utility: Get current time
- */
-function getCurrentTime() {
-    return new Date().toLocaleTimeString();
-}
-
-/**
- * Utility: Log page info
- */
-function logPageInfo() {
-    console.log({
-        title: document.title,
-        url: window.location.href,
-        timestamp: getCurrentTime(),
-        userAgent: navigator.userAgent.substring(0, 50)
-    });
-}
-
-// Log page info on load
-logPageInfo();
-
-// Add CSS animation keyframes dynamically
-const style = document.createElement('style');
-style.innerHTML = `
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-`;
-document.head.appendChild(style);
-
-// Expose useful functions to window for console testing
-window.coderApp = {
-    handleButtonClick,
-    handleNavClick,
-    handleFormSubmit,
-    handleCardClick,
-    getCurrentTime,
-    logPageInfo
-};
-
-console.log('✨ Coder 2026-2027 ready! Access functions via window.coderApp');
+renderPeople();
