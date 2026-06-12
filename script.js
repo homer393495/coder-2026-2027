@@ -35,6 +35,10 @@ let volume = 0.7;
 let audioContext = null;
 let nextId = 4;
 
+// General Emergency Alarm state
+let hornTimeouts = [];
+let hornPatternPlaying = false;
+
 function initAudioContext() {
   if (!audioContext) {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -47,8 +51,7 @@ function saveData() {
     timer,
     isMuted,
     volume,
-    nextId,
-    drillActive: !!drillInterval
+    nextId
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
@@ -165,6 +168,88 @@ function playBeep(duration = 300, frequency = 880, beepVolume = 0.2) {
   }, duration);
 }
 
+function playHornBlast(duration = 600, frequency = 520, hornVolume = 0.45) {
+  if (isMuted) return;
+
+  initAudioContext();
+
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
+  const now = audioContext.currentTime;
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+
+  oscillator.type = "square";
+  oscillator.frequency.setValueAtTime(frequency, now);
+
+  gainNode.gain.setValueAtTime(0.0001, now);
+  gainNode.gain.exponentialRampToValueAtTime(hornVolume * volume, now + 0.03);
+  gainNode.gain.setValueAtTime(hornVolume * volume, now + Math.max(0.05, duration / 1000 - 0.08));
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration / 1000);
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+
+  oscillator.start(now);
+  oscillator.stop(now + duration / 1000 + 0.02);
+}
+
+function stopHornPattern() {
+  hornTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+  hornTimeouts = [];
+  hornPatternPlaying = false;
+}
+
+function playGeneralEmergencyAlarm(onComplete) {
+  if (isMuted) {
+    if (typeof onComplete === "function") onComplete();
+    return;
+  }
+
+  stopHornPattern();
+  hornPatternPlaying = true;
+
+  // Pattern:
+  // 7 short horns: 500ms each with 300ms gap
+  // 1 long horn: 2500ms
+  const shortHornDuration = 500;
+  const gapDuration = 300;
+  const longHornDuration = 2500;
+
+  let currentTime = 0;
+
+  for (let i = 0; i < 7; i++) {
+    const timeoutId = setTimeout(() => {
+      if (!hornPatternPlaying || isMuted || !drillInterval) return;
+      playHornBlast(shortHornDuration, 520, 0.45);
+    }, currentTime);
+
+    hornTimeouts.push(timeoutId);
+    currentTime += shortHornDuration + gapDuration;
+  }
+
+  const longHornTimeout = setTimeout(() => {
+    if (!hornPatternPlaying || isMuted || !drillInterval) return;
+    playHornBlast(longHornDuration, 520, 0.5);
+  }, currentTime);
+
+  hornTimeouts.push(longHornTimeout);
+  currentTime += longHornDuration;
+
+  const finishTimeout = setTimeout(() => {
+    hornPatternPlaying = false;
+    hornTimeouts = [];
+
+    if (typeof onComplete === "function" && drillInterval && !isMuted) {
+      onComplete();
+    }
+  }, currentTime + 100);
+
+  hornTimeouts.push(finishTimeout);
+}
+
 function speakMessage(message) {
   if (isMuted || !("speechSynthesis" in window)) return;
 
@@ -218,7 +303,7 @@ function markMissing(id) {
   playBeep(200, 450, 0.18);
   renderPeople();
 
-  if (drillInterval && !isMuted && sirenSound.paused) {
+  if (drillInterval && !isMuted && sirenSound.paused && !hornPatternPlaying) {
     playSiren();
   }
 }
@@ -295,6 +380,7 @@ function checkAllPresent() {
 
   if (present === total) {
     stopReminder();
+    stopHornPattern();
     stopSiren();
     speakMessage("All personnel are present.");
     playBeep(700, 1200, 0.25);
@@ -311,8 +397,7 @@ function startDrill() {
   }
 
   showActiveDrillUI();
-  playSiren();
-  speakMessage("Muster drill started. Please report to the assembly point.");
+  speakMessage("General emergency alarm. Muster drill started. Please report to the assembly point.");
   startReminder();
 
   drillInterval = setInterval(() => {
@@ -320,6 +405,14 @@ function startDrill() {
     timerDisplay.textContent = formatTime(timer);
     saveData();
   }, 1000);
+
+  // First play 7 short horns + 1 long horn
+  // Then start looping siren if drill is still active and people are still missing
+  playGeneralEmergencyAlarm(() => {
+    if (drillInterval && getMissingCount() > 0) {
+      playSiren();
+    }
+  });
 
   checkAllPresent();
   saveData();
@@ -330,6 +423,7 @@ function stopDrill() {
   drillInterval = null;
 
   stopReminder();
+  stopHornPattern();
   stopSiren();
   window.speechSynthesis.cancel();
 
@@ -343,6 +437,7 @@ function resetDrill() {
   drillInterval = null;
 
   stopReminder();
+  stopHornPattern();
   stopSiren();
   window.speechSynthesis.cancel();
 
@@ -364,10 +459,17 @@ function toggleMute() {
   muteBtn.textContent = isMuted ? "Unmute" : "Mute";
 
   if (isMuted) {
+    stopHornPattern();
     stopSiren();
     window.speechSynthesis.cancel();
-  } else if (drillInterval && getMissingCount() > 0) {
-    playSiren();
+  } else if (drillInterval) {
+    // When unmuted during active drill:
+    // replay general emergency alarm, then siren
+    playGeneralEmergencyAlarm(() => {
+      if (drillInterval && getMissingCount() > 0) {
+        playSiren();
+      }
+    });
   }
 
   saveData();
