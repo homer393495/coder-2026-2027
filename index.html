@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muster Drill</title>
+  <title>Muster Drill Pro</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Muster Drill Attendance</h1>
 
+    <div id="alertBanner" class="alert-banner hidden">
+      🚨 EMERGENCY MUSTER DRILL ACTIVE — REPORT TO ASSEMBLY POINT 🚨
+    </div>
+
     <div class="top-section">
       <div class="drill-box">
-        <h2>Drill Status</h2>
+        <h2>Drill Control</h2>
         <p id="drillStatus" class="status inactive">Not Started</p>
         <p><strong>Timer:</strong> <span id="timer">00:00</span></p>
 
@@ -21,6 +25,12 @@
           <button id="stopBtn" disabled>Stop Drill</button>
           <button id="resetBtn">Reset</button>
           <button id="muteBtn">Mute</button>
+        </div>
+
+        <div class="volume-box">
+          <label for="volumeSlider"><strong>Volume:</strong></label>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.7" />
+          <span id="volumeValue">70%</span>
         </div>
       </div>
 
@@ -34,8 +44,10 @@
 
     <div class="add-person">
       <h2>Add Personnel</h2>
-      <input type="text" id="personName" placeholder="Enter name" />
-      <button id="addPersonBtn">Add</button>
+      <div class="add-row">
+        <input type="text" id="personName" placeholder="Enter name" />
+        <button id="addPersonBtn">Add</button>
+      </div>
     </div>
 
     <div class="list-section">
@@ -45,7 +57,7 @@
           <tr>
             <th>Name</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="personList"></tbody>
@@ -53,7 +65,6 @@
     </div>
   </div>
 
-  <!-- Siren loop sound -->
   <audio id="sirenSound" src="siren.mp3" preload="auto" loop></audio>
 
   <script src="script.js"></script>
