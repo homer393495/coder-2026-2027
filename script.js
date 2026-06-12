@@ -18,6 +18,8 @@ const volumeValue = document.getElementById("volumeValue");
 const alertBanner = document.getElementById("alertBanner");
 
 const sirenSound = document.getElementById("sirenSound");
+const shortHornSound = document.getElementById("shortHornSound");
+const longHornSound = document.getElementById("longHornSound");
 
 const STORAGE_KEY = "musterDrillProData";
 
@@ -32,18 +34,10 @@ let drillInterval = null;
 let reminderInterval = null;
 let isMuted = false;
 let volume = 0.7;
-let audioContext = null;
 let nextId = 4;
 
-// General Emergency Alarm state
-let hornTimeouts = [];
-let hornPatternPlaying = false;
-
-function initAudioContext() {
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  }
-}
+let hornSequenceToken = 0;
+let hornSequencePlaying = false;
 
 function saveData() {
   const data = {
@@ -72,7 +66,7 @@ function loadData() {
     volumeSlider.value = volume;
     volumeValue.textContent = `${Math.round(volume * 100)}%`;
     muteBtn.textContent = isMuted ? "Unmute" : "Mute";
-    sirenSound.volume = volume;
+    applyVolume();
   } catch (error) {
     console.error("Failed to load saved data:", error);
   }
@@ -142,112 +136,109 @@ function renderPeople() {
   saveData();
 }
 
-function playBeep(duration = 300, frequency = 880, beepVolume = 0.2) {
+function applyVolume() {
+  sirenSound.volume = volume;
+  shortHornSound.volume = volume;
+  longHornSound.volume = volume;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function stopAudio(audio) {
+  audio.pause();
+  audio.currentTime = 0;
+}
+
+function playSiren() {
   if (isMuted) return;
-
-  initAudioContext();
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
-
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-
-  oscillator.type = "sine";
-  oscillator.frequency.value = frequency;
-  gainNode.gain.value = beepVolume * volume;
-
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-
-  oscillator.start();
-
-  setTimeout(() => {
-    oscillator.stop();
-  }, duration);
+  applyVolume();
+  sirenSound.currentTime = 0;
+  sirenSound.play().catch(error => {
+    console.log("Siren blocked:", error);
+  });
 }
 
-function playHornBlast(duration = 600, frequency = 520, hornVolume = 0.45) {
-  if (isMuted) return;
-
-  initAudioContext();
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
-
-  const now = audioContext.currentTime;
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-
-  oscillator.type = "square";
-  oscillator.frequency.setValueAtTime(frequency, now);
-
-  gainNode.gain.setValueAtTime(0.0001, now);
-  gainNode.gain.exponentialRampToValueAtTime(hornVolume * volume, now + 0.03);
-  gainNode.gain.setValueAtTime(hornVolume * volume, now + Math.max(0.05, duration / 1000 - 0.08));
-  gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration / 1000);
-
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-
-  oscillator.start(now);
-  oscillator.stop(now + duration / 1000 + 0.02);
+function stopSiren() {
+  stopAudio(sirenSound);
 }
 
-function stopHornPattern() {
-  hornTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-  hornTimeouts = [];
-  hornPatternPlaying = false;
+function stopHornSounds() {
+  stopAudio(shortHornSound);
+  stopAudio(longHornSound);
 }
 
-function playGeneralEmergencyAlarm(onComplete) {
-  if (isMuted) {
-    if (typeof onComplete === "function") onComplete();
-    return;
+function stopHornSequence() {
+  hornSequenceToken++;
+  hornSequencePlaying = false;
+  stopHornSounds();
+}
+
+async function playShortHorn(token) {
+  if (token !== hornSequenceToken || isMuted || !drillInterval) return;
+
+  stopHornSounds();
+  applyVolume();
+
+  shortHornSound.currentTime = 0;
+
+  try {
+    await shortHornSound.play();
+  } catch (error) {
+    console.log("Short horn blocked:", error);
   }
+}
 
-  stopHornPattern();
-  hornPatternPlaying = true;
+async function playLongHorn(token) {
+  if (token !== hornSequenceToken || isMuted || !drillInterval) return;
 
-  // Pattern:
-  // 7 short horns: 500ms each with 300ms gap
-  // 1 long horn: 2500ms
-  const shortHornDuration = 500;
-  const gapDuration = 300;
-  const longHornDuration = 2500;
+  stopHornSounds();
+  applyVolume();
 
-  let currentTime = 0;
+  longHornSound.currentTime = 0;
 
+  try {
+    await longHornSound.play();
+  } catch (error) {
+    console.log("Long horn blocked:", error);
+  }
+}
+
+async function playGeneralEmergencyAlarm() {
+  if (isMuted || !drillInterval) return;
+
+  stopSiren();
+  stopHornSequence();
+
+  hornSequencePlaying = true;
+  const token = hornSequenceToken;
+
+  // 7 short horns
   for (let i = 0; i < 7; i++) {
-    const timeoutId = setTimeout(() => {
-      if (!hornPatternPlaying || isMuted || !drillInterval) return;
-      playHornBlast(shortHornDuration, 520, 0.45);
-    }, currentTime);
+    if (token !== hornSequenceToken || isMuted || !drillInterval) return;
 
-    hornTimeouts.push(timeoutId);
-    currentTime += shortHornDuration + gapDuration;
+    await playShortHorn(token);
+
+    // Adjust these times to match your actual short horn audio length
+    await sleep(900);
   }
 
-  const longHornTimeout = setTimeout(() => {
-    if (!hornPatternPlaying || isMuted || !drillInterval) return;
-    playHornBlast(longHornDuration, 520, 0.5);
-  }, currentTime);
+  // 1 long horn
+  if (token !== hornSequenceToken || isMuted || !drillInterval) return;
+  await playLongHorn(token);
 
-  hornTimeouts.push(longHornTimeout);
-  currentTime += longHornDuration;
+  // Adjust this time to match your actual long horn audio length
+  await sleep(3500);
 
-  const finishTimeout = setTimeout(() => {
-    hornPatternPlaying = false;
-    hornTimeouts = [];
+  if (token !== hornSequenceToken || isMuted || !drillInterval) return;
 
-    if (typeof onComplete === "function" && drillInterval && !isMuted) {
-      onComplete();
-    }
-  }, currentTime + 100);
+  hornSequencePlaying = false;
+  stopHornSounds();
 
-  hornTimeouts.push(finishTimeout);
+  if (getMissingCount() > 0) {
+    playSiren();
+  }
 }
 
 function speakMessage(message) {
@@ -263,21 +254,6 @@ function speakMessage(message) {
   window.speechSynthesis.speak(utterance);
 }
 
-function playSiren() {
-  if (isMuted) return;
-
-  sirenSound.volume = volume;
-  sirenSound.currentTime = 0;
-  sirenSound.play().catch(error => {
-    console.log("Siren blocked:", error);
-  });
-}
-
-function stopSiren() {
-  sirenSound.pause();
-  sirenSound.currentTime = 0;
-}
-
 function getPresentCount() {
   return people.filter(person => person.status === "Present").length;
 }
@@ -291,7 +267,6 @@ function markPresent(id) {
   if (!person) return;
 
   person.status = "Present";
-  playBeep(200, 1000, 0.18);
   renderPeople();
 }
 
@@ -300,10 +275,9 @@ function markMissing(id) {
   if (!person) return;
 
   person.status = "Missing";
-  playBeep(200, 450, 0.18);
   renderPeople();
 
-  if (drillInterval && !isMuted && sirenSound.paused && !hornPatternPlaying) {
+  if (drillInterval && !isMuted && sirenSound.paused && !hornSequencePlaying) {
     playSiren();
   }
 }
@@ -335,12 +309,11 @@ function startReminder() {
   stopReminder();
 
   reminderInterval = setInterval(() => {
-    if (!drillInterval) return;
+    if (!drillInterval || hornSequencePlaying) return;
 
     const missing = getMissingCount();
 
     if (missing > 0) {
-      playBeep(500, 750, 0.25);
       speakMessage(`${missing} personnel still missing.`);
     }
   }, 10000);
@@ -375,30 +348,21 @@ function checkAllPresent() {
   const total = people.length;
   const present = getPresentCount();
 
-  if (!drillInterval) return;
-  if (total === 0) return;
+  if (!drillInterval || total === 0) return;
 
   if (present === total) {
     stopReminder();
-    stopHornPattern();
+    stopHornSequence();
     stopSiren();
     speakMessage("All personnel are present.");
-    playBeep(700, 1200, 0.25);
   }
 }
 
-function startDrill() {
+async function startDrill() {
   if (drillInterval) return;
-
-  initAudioContext();
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
 
   showActiveDrillUI();
   speakMessage("General emergency alarm. Muster drill started. Please report to the assembly point.");
-  startReminder();
 
   drillInterval = setInterval(() => {
     timer++;
@@ -406,16 +370,11 @@ function startDrill() {
     saveData();
   }, 1000);
 
-  // First play 7 short horns + 1 long horn
-  // Then start looping siren if drill is still active and people are still missing
-  playGeneralEmergencyAlarm(() => {
-    if (drillInterval && getMissingCount() > 0) {
-      playSiren();
-    }
-  });
-
-  checkAllPresent();
+  startReminder();
   saveData();
+
+  await playGeneralEmergencyAlarm();
+  checkAllPresent();
 }
 
 function stopDrill() {
@@ -423,7 +382,7 @@ function stopDrill() {
   drillInterval = null;
 
   stopReminder();
-  stopHornPattern();
+  stopHornSequence();
   stopSiren();
   window.speechSynthesis.cancel();
 
@@ -437,7 +396,7 @@ function resetDrill() {
   drillInterval = null;
 
   stopReminder();
-  stopHornPattern();
+  stopHornSequence();
   stopSiren();
   window.speechSynthesis.cancel();
 
@@ -454,22 +413,16 @@ function resetDrill() {
   saveData();
 }
 
-function toggleMute() {
+async function toggleMute() {
   isMuted = !isMuted;
   muteBtn.textContent = isMuted ? "Unmute" : "Mute";
 
   if (isMuted) {
-    stopHornPattern();
+    stopHornSequence();
     stopSiren();
     window.speechSynthesis.cancel();
   } else if (drillInterval) {
-    // When unmuted during active drill:
-    // replay general emergency alarm, then siren
-    playGeneralEmergencyAlarm(() => {
-      if (drillInterval && getMissingCount() > 0) {
-        playSiren();
-      }
-    });
+    await playGeneralEmergencyAlarm();
   }
 
   saveData();
@@ -478,7 +431,7 @@ function toggleMute() {
 function updateVolume() {
   volume = parseFloat(volumeSlider.value);
   volumeValue.textContent = `${Math.round(volume * 100)}%`;
-  sirenSound.volume = volume;
+  applyVolume();
   saveData();
 }
 
@@ -500,4 +453,4 @@ loadData();
 renderPeople();
 showInactiveDrillUI("Not Started");
 timerDisplay.textContent = formatTime(timer);
-sirenSound.volume = volume;
+applyVolume();
