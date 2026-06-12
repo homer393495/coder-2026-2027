@@ -15,10 +15,12 @@
         <h2>Drill Status</h2>
         <p id="drillStatus" class="status inactive">Not Started</p>
         <p><strong>Timer:</strong> <span id="timer">00:00</span></p>
+
         <div class="buttons">
           <button id="startBtn">Start Drill</button>
           <button id="stopBtn" disabled>Stop Drill</button>
           <button id="resetBtn">Reset</button>
+          <button id="muteBtn">Mute</button>
         </div>
       </div>
 
@@ -50,6 +52,9 @@
       </table>
     </div>
   </div>
+
+  <!-- Siren loop sound -->
+  <audio id="sirenSound" src="siren.mp3" preload="auto" loop></audio>
 
   <script src="script.js"></script>
 </body>
