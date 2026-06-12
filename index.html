@@ -1,73 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coder 2026-2027</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muster Drill</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Welcome to Coder 2026-2027</h1>
-            <p>Your interactive web experience</p>
-        </header>
-        
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+  <div class="container">
+    <h1>Muster Drill Attendance</h1>
 
-        <main>
-            <section id="home">
-                <h2>Home</h2>
-                <p>This is your main landing section.</p>
-                <button id="actionBtn">Click Me!</button>
-            </section>
+    <div class="top-section">
+      <div class="drill-box">
+        <h2>Drill Status</h2>
+        <p id="drillStatus" class="status inactive">Not Started</p>
+        <p><strong>Timer:</strong> <span id="timer">00:00</span></p>
+        <div class="buttons">
+          <button id="startBtn">Start Drill</button>
+          <button id="stopBtn" disabled>Stop Drill</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+      </div>
 
-            <section id="about">
-                <h2>About</h2>
-                <p>Learn more about this project.</p>
-            </section>
-
-            <section id="projects">
-                <h2>Projects</h2>
-                <div class="project-grid">
-                    <div class="project-card">
-                        <h3>Project 1</h3>
-                        <p>Description of project 1</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project 2</h3>
-                        <p>Description of project 2</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project 3</h3>
-                        <p>Description of project 3</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact">
-                <h2>Contact</h2>
-                <form id="contactForm">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit">Send</button>
-                </form>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2026-2027 Coder Project. All rights reserved.</p>
-        </footer>
+      <div class="summary-box">
+        <h2>Summary</h2>
+        <p>Total Personnel: <span id="totalCount">0</span></p>
+        <p>Present: <span id="presentCount">0</span></p>
+        <p>Missing: <span id="missingCount">0</span></p>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="add-person">
+      <h2>Add Personnel</h2>
+      <input type="text" id="personName" placeholder="Enter name" />
+      <button id="addPersonBtn">Add</button>
+    </div>
+
+    <div class="list-section">
+      <h2>Personnel List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="personList"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
